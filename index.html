@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serkeys | Aprende piano jugando</title>
+
+  <link rel="icon" type="image/png" href="./logo.png" />
+  <link rel="apple-touch-icon" href="./logo.png" />
+
+  <style>
+    :root {
+      --bg: #070914;
+      --bg-soft: #101426;
+      --card: rgba(255, 255, 255, 0.07);
+      --text: #ffffff;
+      --muted: #b8bfd8;
+      --primary: #7c5cff;
+      --primary-light: #a993ff;
+      --accent: #42e8f5;
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.35), transparent 35%),
+        radial-gradient(circle at top right, rgba(66, 232, 245, 0.22), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 9, 20, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .logo img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero {
+      padding: 96px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(66, 232, 245, 0.08);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .hero-brand img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(66, 232, 245, 0.35));
+    }
+
+    .hero-brand h1 {
+      font-size: clamp(46px, 8vw, 86px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    .hero-brand h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 620px;
+      font-size: 20px;
+      color: var(--muted);
+      margin-bottom: 34px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #ffffff;
+      box-shadow: 0 18px 45px rgba(124, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .phone-preview {
+      position: relative;
+      min-height: 520px;
+      border-radius: 36px;
+      padding: 18px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.03));
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .game-screen {
+      height: 100%;
+      min-height: 484px;
+      border-radius: 26px;
+      overflow: hidden;
+      background:
+        linear-gradient(to bottom, rgba(124, 92, 255, 0.35), transparent 35%),
+        #080b18;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .falling-notes {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 9%, rgba(255, 255, 255, 0.08) 10%, transparent 11%),
+        linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.08) 25%, transparent 26%),
+        linear-gradient(90deg, transparent 39%, rgba(255, 255, 255, 0.08) 40%, transparent 41%),
+        linear-gradient(90deg, transparent 54%, rgba(255, 255, 255, 0.08) 55%, transparent 56%),
+        linear-gradient(90deg, transparent 69%, rgba(255, 255, 255, 0.08) 70%, transparent 71%);
+    }
+
+    .note {
+      position: absolute;
+      width: 12%;
+      height: 82px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, var(--accent), var(--primary));
+      box-shadow: 0 0 24px rgba(66, 232, 245, 0.5);
+    }
+
+    .note:nth-child(1) {
+      left: 12%;
+      top: 12%;
+    }
+
+    .note:nth-child(2) {
+      left: 42%;
+      top: 28%;
+      height: 120px;
+    }
+
+    .note:nth-child(3) {
+      left: 72%;
+      top: 18%;
+    }
+
+    .note:nth-child(4) {
+      left: 27%;
+      top: 54%;
+      height: 96px;
+    }
+
+    .keyboard {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 3px;
+      padding: 12px;
+    }
+
+    .key {
+      height: 96px;
+      border-radius: 0 0 10px 10px;
+      background: #ffffff;
+    }
+
+    .key:nth-child(3),
+    .key:nth-child(6) {
+      background: var(--accent);
+      box-shadow: 0 0 22px rgba(66, 232, 245, 0.8);
+    }
+
+    section {
+      padding: 84px 0;
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 42px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 18px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .highlight-box {
+      padding: 38px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(124, 92, 255, 0.28), rgba(66, 232, 245, 0.12)),
+        var(--bg-soft);
+      border: 1px solid var(--border);
+    }
+
+    .highlight-box ul {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      color: var(--muted);
+    }
+
+    .highlight-box li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 800;
+      margin-right: 10px;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 96px 0;
+    }
+
+    .cta-box {
+      padding: 64px 28px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at top, rgba(66, 232, 245, 0.25), transparent 40%),
+        linear-gradient(135deg, rgba(124, 92, 255, 0.24), rgba(255, 255, 255, 0.06));
+      border: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-size: clamp(36px, 6vw, 64px);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+
+      .hero-grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid,
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .phone-preview {
+        min-height: 460px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links {
+        display: none;
+      }
+
+      .features-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+
+      .hero-brand {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .phone-preview {
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container navbar-content">
+      <a class="logo" href="#">
+        <img src="./logo.png" alt="Serkeys logo" />
+        Ser<span>keys</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">Cómo funciona</a>
+        <a href="#download">Descargar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge">Piano learning game app</div>
+
+          <img class="hero-logo" src="./logo.png" alt="Serkeys logo" />
+
+          <h1>Aprende piano <span>jugando.</span></h1>
+
+          <p>
+            Convierte cualquier canción MIDI en una experiencia interactiva.
+            Practica, mejora tu precisión y domina nuevas canciones con Serkeys.
+          </p>
+
+          <div class="buttons">
+            <a class="btn btn-primary" href="#download">Descargar ahora</a>
+            <a class="btn btn-secondary" href="#demo">Ver demo</a>
+          </div>
+        </div>
+
+        <div class="phone-preview" id="demo">
+          <div class="game-screen">
+            <div class="falling-notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+
+            <div class="keyboard">
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+              <div class="key"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Todo lo que necesitas para aprender tocando</h2>
+          <p>
+            Serkeys transforma la práctica de piano en una experiencia visual,
+            divertida y fácil de seguir.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="card">
+            <h3>Canciones MIDI</h3>
+            <p>Importa archivos MIDI y practica con tus canciones favoritas.</p>
+          </article>
+
+          <article class="card">
+            <h3>Teclado MIDI</h3>
+            <p>Conecta tu piano o teclado y recibe retroalimentación en tiempo real.</p>
+          </article>
+
+          <article class="card">
+            <h3>Modo juego</h3>
+            <p>Gana puntos, mejora tu precisión y supera tus propios récords.</p>
+          </article>
+
+          <article class="card">
+            <h3>Práctica a tu ritmo</h3>
+            <p>Reduce velocidad, repite secciones y domina cada parte de la canción.</p>
+          </article>
+
+          <article class="card">
+            <h3>Progreso real</h3>
+            <p>Mide precisión, timing y mejora constante en cada sesión.</p>
+          </article>
+
+          <article class="card">
+            <h3>Para todos</h3>
+            <p>Ideal para principiantes, jugadores y músicos que quieren practicar mejor.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h2>Empieza en minutos</h2>
+          <p>Sube una canción, conecta tu teclado y comienza a tocar.</p>
+        </div>
+
+        <div class="steps">
+          <article class="card">
+            <div class="step-number">1</div>
+            <h3>Carga una canción</h3>
+            <p>Importa cualquier archivo MIDI compatible.</p>
+          </article>
+
+          <article class="card">
+            <div class="step-number">2</div>
+            <h3>Conecta tu teclado</h3>
+            <p>Usa un teclado MIDI o toca desde pantalla.</p>
+          </article>
+
+          <article class="card">
+            <div class="step-number">3</div>
+            <h3>Sigue las notas</h3>
+            <p>Visualiza cada tecla y nota en tiempo real.</p>
+          </article>
+
+          <article class="card">
+            <div class="step-number">4</div>
+            <h3>Mejora jugando</h3>
+            <p>Practica, gana precisión y domina nuevas canciones.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div class="section-header">
+          <h2>Practicar piano no debería sentirse como tarea</h2>
+          <p>
+            Serkeys combina aprendizaje musical con mecánicas de juego para que
+            cada sesión se sienta más entretenida y motivadora.
+          </p>
+        </div>
+
+        <div class="highlight-box">
+          <ul>
+            <li>Menos teoría aburrida</li>
+            <li>Más tocar desde el primer minuto</li>
+            <li>Más claridad visual al practicar</li>
+            <li>Más motivación para seguir mejorando</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="download">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Tu siguiente canción empieza aquí</h2>
+          <p>Aprende piano de una forma más divertida con Serkeys.</p>
+
+          <div class="buttons" style="justify-content: center;">
+            <a class="btn btn-primary" href="#">Descargar Serkeys</a>
+            <a class="btn btn-secondary" href="#demo">Probar demo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p>© 2026 Serkeys. All rights reserved.</p>
+
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="./privacy.html">Privacidad (ES)</a>
+        <a href="./privacy-en.html">Privacy (EN)</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidad | Serkeys</title>
+
+  <link rel="icon" type="image/png" href="./logo.png" />
+  <link rel="apple-touch-icon" href="./logo.png" />
+
+  <style>
+    :root {
+      --bg: #070914;
+      --bg-soft: #101426;
+      --card: rgba(255, 255, 255, 0.07);
+      --text: #ffffff;
+      --muted: #b8bfd8;
+      --primary: #7c5cff;
+      --accent: #42e8f5;
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.35), transparent 35%),
+        radial-gradient(circle at top right, rgba(66, 232, 245, 0.22), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(920px, 92%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 9, 20, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .logo img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .back-link {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .privacy {
+      padding: 72px 0 96px;
+    }
+
+    .privacy-card {
+      padding: 42px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      backdrop-filter: blur(16px);
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
+    }
+
+    .updated {
+      color: var(--accent);
+      margin-bottom: 28px;
+      font-weight: 700;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 36px 0 12px;
+    }
+
+    ul {
+      color: var(--muted);
+      padding-left: 22px;
+      margin-bottom: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .contact {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    @media (max-width: 620px) {
+      .privacy-card {
+        padding: 28px;
+      }
+
+      .back-link {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container navbar-content">
+      <a class="logo" href="./index.html">
+        <img src="./logo.png" alt="Serkeys logo" />
+        Ser<span>keys</span>
+      </a>
+
+      <a class="back-link" href="./index.html">Volver al inicio</a>
+    </div>
+  </header>
+
+  <main class="privacy">
+    <div class="container">
+      <article class="privacy-card">
+        <h1>Política de Privacidad de Serkeys</h1>
+        <p class="updated">Última actualización: [FECHA]</p>
+
+        <p>
+          Serkeys (“la app”) es una aplicación de visualización y aprendizaje musical con MIDI.
+        </p>
+
+        <h2>1. Datos que se recopilan</h2>
+        <p>La app y sus proveedores pueden recopilar:</p>
+        <ul>
+          <li>Identificadores de dispositivo y datos técnicos.</li>
+          <li>Datos de uso e interacción en la app.</li>
+          <li>Diagnósticos y rendimiento.</li>
+          <li>Ubicación aproximada derivada de IP, por servicios de anuncios.</li>
+          <li>Datos de compras digitales gestionadas por Google Play, como suscripciones o compras.</li>
+        </ul>
+
+        <h2>2. Fuentes y terceros</h2>
+        <p>Usamos servicios de terceros:</p>
+        <ul>
+          <li>Google AdMob para publicidad.</li>
+          <li>Google Play Billing para compras integradas.</li>
+        </ul>
+        <p>
+          Estos servicios pueden recopilar y procesar datos según sus propias políticas.
+        </p>
+
+        <h2>3. Datos que NO recopilamos directamente</h2>
+        <ul>
+          <li>No creamos cuentas de usuario en la app.</li>
+          <li>No pedimos nombre, correo o teléfono dentro de la app.</li>
+          <li>Los archivos MIDI importados se usan para funcionalidad local de la app.</li>
+        </ul>
+
+        <h2>4. Finalidades del uso de datos</h2>
+        <ul>
+          <li>Mostrar y medir anuncios.</li>
+          <li>Habilitar compras dentro de la app.</li>
+          <li>Analítica, seguridad, prevención de fraude y mejora de estabilidad.</li>
+        </ul>
+
+        <h2>5. Compartición de datos</h2>
+        <p>
+          Algunos datos pueden compartirse con proveedores, por ejemplo Google, para los fines anteriores.
+        </p>
+
+        <h2>6. Seguridad</h2>
+        <p>
+          Los datos se transmiten mediante conexiones seguras proporcionadas por los servicios utilizados.
+        </p>
+
+        <h2>7. Menores de edad</h2>
+        <p>
+          La app no está dirigida a menores de 13 años.
+        </p>
+
+        <h2>8. Permisos</h2>
+        <p>
+          La app puede solicitar permisos de Bluetooth/ubicación para funciones MIDI/BLE y conectividad asociada.
+        </p>
+
+        <h2>9. Tus derechos y contacto</h2>
+        <p>
+          Si tienes dudas sobre privacidad, contáctanos en:
+          <span class="contact">[TU_CORREO_DE_SOPORTE]</span>
+        </p>
+
+        <h2>10. Cambios a esta política</h2>
+        <p>
+          Podemos actualizar esta política. Publicaremos la versión vigente en esta misma URL.
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Serkeys. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
